@@ -1,46 +1,41 @@
 <?php include_once('php/Products.php');
 include_once('php/Carousel.php') ?>
 
+<?php
+if (isset($_GET['show'])) {
+  if (!Products::valid_num_input($_GET['show'])) {
+    $error = '{"message":"Show måste vara ett tal mellan 1 och 10", "status":"failed"}';
+    header("Content-type: application/json");
+    echo $error;
+    http_response_code(400);
+    exit();
+  }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
+
+<!-- 
+    Validerad 2021-01-18 18:03 via https://validator.w3.org/
+    Document checking completed. No errors or warnings to show.
+-->
 
 <head>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
 
   <title>TripÆ[d]ventüre</title>
 
-  <!-- Bootstrap core CSS -->
+  <!-- https://bootswatch.com/solar/ -->
   <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="css/shop-homepage.css" rel="stylesheet">
-
-  <style>
-    .icon-float {
-      position: absolute;
-      z-index: 1;
-      padding: 15px;
-    }
-
-    .right {
-      right: 5px;
-    }
-
-    .sectionHeading {
-      font-size: 3rem;
-      text-align: center;
-      padding: 3rem;
-      scroll-margin-top: 1em;
-    }
-  </style>
-
 </head>
 
-<body class="">
+<body>
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -53,7 +48,7 @@ include_once('php/Carousel.php') ?>
       <div class="collapse navbar-collapse" id="navbarResponsive">
 
         <form><input class="form-control" type="text" placeholder="Sök" aria-label="Search"></form>
-        
+
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="#aktuellt">Aktuella erbjudanden</a>
@@ -76,6 +71,7 @@ include_once('php/Carousel.php') ?>
     <div class="row">
       <?php Carousel::main(); ?>
     </div>
+    <!-- /.carousel -->
 
     <!-- Products -->
     <div class="row">
@@ -94,6 +90,7 @@ include_once('php/Carousel.php') ?>
   </div>
   <!-- /.container -->
 
+  <!-- Jumbotron -->
   <div class="jumbotron">
     <div class="container mb-5">
       <h1 class="display-3">Travellers' Choice Worst of the Worst</h1>
@@ -101,13 +98,14 @@ include_once('php/Carousel.php') ?>
       <p><a class="btn btn-primary btn-lg" href="#" role="button">Läs mer »</a></p>
     </div>
   </div>
+  <!-- /.jumbotron -->
 
+  <!-- Terms of Use -->
   <div class="container">
     <div class="row mb-5">
       <div class="col-12">
         <h1 id="villkor" class="sectionHeading">Villkor & regler</h1>
       </div>
-
       <div class="col-md-6">
         <h3>Allmänna villkor</h3>
         <p class="">
@@ -127,7 +125,7 @@ include_once('php/Carousel.php') ?>
         </p>
       </div>
     </div>
-  </div> <!-- /container -->
+  </div> <!-- /terms of Use -->
 
   <!-- Footer -->
   <footer class="py-5 bg-dark">

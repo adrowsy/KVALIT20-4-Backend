@@ -63,7 +63,7 @@ class Carousel
         </ol>
         <div class='carousel-inner' role='listbox'>
           <div class='carousel-item active'>
-            <img class='d-block img-fluid' img src='$firstimg' alt='$firstimg'>
+            <img class='d-block img-fluid' src='$firstimg' alt='$firstimg'>
             <div class='carousel-caption d-none d-md-block'>
         <h5>$firstcap</h5>
         <p>$firstdes</p>
@@ -71,21 +71,21 @@ class Carousel
           </div>
           
           <div class='carousel-item'>
-            <img class='d-block img-fluid' img src='$secondimg' alt='$secondimg'>
+            <img class='d-block img-fluid' src='$secondimg' alt='$secondimg'>
             <div class='carousel-caption d-none d-md-block'>
         <h5>$secondcap</h5>
         <p>$seconddes</p>
       </div>
           </div>
           <div class='carousel-item'>
-            <img class='d-block img-fluid' img src='$thirdimg' alt='$thirdimg'>
+            <img class='d-block img-fluid' src='$thirdimg' alt='$thirdimg'>
             <div class='carousel-caption d-none d-md-block'>
         <h5>$thirdcap</h5>
         <p>$thirddes</p>
       </div>
           </div>
           <div class='carousel-item'>
-            <img class='d-block img-fluid' img src='$fourthimg' alt='$fourthimg'>
+            <img class='d-block img-fluid' src='$fourthimg' alt='$fourthimg'>
             <div class='carousel-caption d-none d-md-block'>
         <h5>$fourthcap</h5>
         <p>$fourthdes</p>

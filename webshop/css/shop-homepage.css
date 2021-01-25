@@ -6,3 +6,24 @@
 body {
   padding-top: 56px;
 }
+
+/*!
+ * Annikas extra CSS
+ */
+
+.icon-float {
+  position: absolute;
+  z-index: 1;
+  padding: 15px;
+}
+
+.right {
+  right: 5px;
+}
+
+.sectionHeading {
+  font-size: 3rem;
+  text-align: center;
+  padding: 3rem;
+  scroll-margin-top: 1em;
+}
