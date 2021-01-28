@@ -3,13 +3,23 @@
 /** 
  * Klassen Products innehåller funktioner som:
  * hämtar och avkodar API i json, omvandlar till array och visar data
- * Även funktion för att visa antal produkter från validerad GET-request
+ * - Visa antal produkter från validerad GET-request
+ * - Visa felmeddelande om:
+ * -- endpoint-url saknas
+ * -- ogiltigt värde i $_GET['show']
+ * 
+ * Annika Rengfelt
+ * https://github.com/adrowsy
+ * KVALIT20 - Backend - Uppgift 3 - del 2 och 3
+ * 2021-01-27
  * */
 
 class Products
 {
 
-  public static $url = "http://localhost/webshop/api";
+  public static $url = "http://localhost/webshop/api/v2";
+  public static $min = 1;
+  public static $max = 10;
 
   public static function main()
   {
@@ -24,48 +34,46 @@ class Products
 
   public static function getData($url)
   {
-    $json = @file_get_contents($url); // @ anger att eget felmeddelande ska visas
+    $json = @file_get_contents($url);
     if (!$json)
-      throw new Exception("<div class='alert alert-danger'>Cannot access $url</div>");
-    return json_decode($json, true); //True ger associativ array
+      throw new Exception("<div class='alert alert-warning'>Cannot access $url</div>");
+
+    if (isset($_GET['show']) and !self::valid_input($_GET['show']))
+      throw new Exception("<div class='alert alert-warning'><h4 class='alert-heading'>Ogiltigt värde</h4><p class='mb-0'>Ett ogiltigt värde har skrivits in i url efter <b>?show=</b>. Giltiga värden är tal mellan " . self::$min . " och " . self::$max . ". 
+      <button type='button' class='btn btn-primary' href='.'>Ladda om sidan</button> </div>");
+
+    return json_decode($json, true);
   }
 
-  public static function valid_num_input($input)
+  public static function valid_input($input)
   {
-    $min = 1; 
-    $max = 10; 
     $valid = false;
 
-    if ($input >= $min and $input <= $max) {
+    if ($input >= self::$min and $input <= self::$max) {
       $valid = true;
     }
 
     return $valid;
   }
 
-  public static function viewData($array) {
+  public static function viewData($array)
+  {
+    $show = isset($_GET['show']) ? $_GET['show'] : self::$max;
 
-    if (isset($_GET['show']) and self::valid_num_input($_GET['show'])) {
-      $show = ($_GET['show']);
-    } else {
-      $show = 10;
-    }
-    
     $shown = 0;
-
     $product = "
     <div class='row'>";
-    
+
     foreach ($array as $key => $value) {
 
       if ($shown < $show) {
 
+        $img_dir = "http://localhost/webshop/img";
         $image = $value['image'];
         $name = $value['name'];
         $price = $value['price'];
         $description = $value['description'];
-
-        $inStock = rand(0, 50);
+        $inStock = $value['in stock'];
 
         $product .= "
             <div class='col-md-6 mb-4'>
@@ -75,7 +83,7 @@ class Products
                     <i class='fas fa-asterisk text-white' style='font-size: 2rem;'></i>
                   </div><!-- ./ icon -->
                                         
-                  <img src='$image' alt='$image' style='' class='card-img-top img-fluid'>
+                  <img src='$img_dir/$image' alt='$image' style='' class='card-img-top img-fluid'>
                 </div><!-- ./ img -->
 
                 <div class='card-body'>
@@ -85,14 +93,14 @@ class Products
                     </div>
 
                     <div class='col-lg-auto'>
-                      <h4 class='text-lg-right'>$price SEK</h4>
+                      <h4 class='text-lg-right'>" . number_format($price, 0, ',', ' ') . " SEK</h4>
                     </div>
                   </div>
 
                   <p class='card-text text-right'>Lediga platser: $inStock</p>
                   <p class='card-text mt-3'>$description</p>
 
-                  ".self::$booking_form."
+                  " . self::$booking_form . "
 
                 </div> <!-- ./ card-body -->
               </div> <!-- ./ card -->
@@ -100,19 +108,20 @@ class Products
 
         $shown++;
       }
+    }
+    $product .= "</div>";
+
+    echo $product;
   }
-  $product .= "</div>";
 
-  echo $product;
-}
 
-/**
- * Variabel som skriver kod för bokningsformulär
- * Används i printProducts()
- **/
+  /**
+   * Variabel som skriver kod för bokningsformulär
+   * Används i printProducts()
+   **/
 
-public static $booking_form = 
-    "<div class='mt-5'>
+  public static $booking_form =
+  "<div class='mt-5'>
       <form>
           <div class='form-row align-items-end'>
             <div class='col-lg-4'>
@@ -149,8 +158,8 @@ public static $booking_form =
                 <button type='submit' class='btn btn-lg btn-success mb-2 btn-block'>Boka</button>
               </div>"
 
-              // Legal notice
-                ."
+    // Legal notice
+    . "
                 <div class='col-12'>
                   <p class='card-text small'>
                   Genom att klicka på \"Boka\" bekräftar jag att jag har läst och godkänt 
@@ -158,11 +167,11 @@ public static $booking_form =
                   <a href='#' class='alert-link text-primary'>Dataskyddsinformation</a> och 
                   <a href='#' class='alert-link text-primary'>Cookiepolicy</a>
                 </div>"
-              // ./ Legal notice
+    // ./ Legal notice
 
-              ."
+    . "
           </div>
         </form>
       </div>
-    "; 
+    ";
 }
