@@ -14,6 +14,8 @@ För VG krävs att via GET-request, till API respektive webbplatsen, visa ett sp
 ## Använda resurser
 Bilder från [Lorem Picsum](https://picsum.photos/)
 
-[Shop Homepage](https://startbootstrap.com/template/shop-homepage/) is a basic HTML online store homepage template for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
+Ikoner från [Font Awesome](https://fontawesome.com/)
 
-[Bootswatch Solar](https://bootswatch.com/solar/) Made by [Thomas Park](https://thomaspark.co/). Code released under the MIT License. Based on Bootstrap. Icons from Font Awesome. Web fonts from Google.
+[Shop Homepage](https://startbootstrap.com/template/shop-homepage/) från [Bootstrap](https://getbootstrap.com/) av [Start Bootstrap](https://startbootstrap.com/).
+
+[Bootswatch Solar](https://bootswatch.com/solar/) Skapad av [Thomas Park](https://thomaspark.co/). MIT Licens.
