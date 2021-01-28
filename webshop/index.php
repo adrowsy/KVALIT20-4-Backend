@@ -1,23 +1,11 @@
 <?php include_once('php/Products.php');
 include_once('php/Carousel.php') ?>
 
-<?php
-if (isset($_GET['show'])) {
-  if (!Products::valid_num_input($_GET['show'])) {
-    $error = '{"message":"Show måste vara ett tal mellan 1 och 10", "status":"failed"}';
-    header("Content-type: application/json");
-    echo $error;
-    http_response_code(400);
-    exit();
-  }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="sv">
 
 <!-- 
-    Validerad 2021-01-18 18:03 via https://validator.w3.org/
+    Validerad 2021-01-27 18:10 via https://validator.w3.org/
     Document checking completed. No errors or warnings to show.
 -->
 
@@ -40,7 +28,9 @@ if (isset($_GET['show'])) {
   <!-- Navigation -->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">TripÆ[d]ventüre</a>
+    <!-- href="." reloads same page 
+    https://stackoverflow.com/questions/1507225 -->
+      <a class="navbar-brand" href=".">TripÆ[d]ventüre</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
